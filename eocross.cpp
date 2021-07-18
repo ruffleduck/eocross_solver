@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include "moves.h"
+#include <vector>
 
 struct cube_t {
     bool eo[12];
@@ -19,6 +20,8 @@ int eocross_max_length;
 int updating_eo_max_depth;
 int updating_cross_max_depth;
 solution_t best_cross_solution;
+
+std::vector<solution_t> eocross_solutions;
 
 cube_t apply_move(cube_t cube, move_t move) {
     cube_t result;
@@ -93,7 +96,7 @@ void solve_eocross(cube_t cube, std::string solution = "", char prev_move = ' ',
                 solution_t eocross_solution;
                 eocross_solution.solution = solution + "/ " + best_cross_solution.solution;
                 eocross_solution.movecount = depth + best_cross_solution.movecount;
-                std::cout << eocross_solution.movecount << " HTM " << eocross_solution.solution << std::endl;
+                eocross_solutions.push_back(eocross_solution);
             }
             updating_cross_max_depth = cross_max_depth;
         }
@@ -127,7 +130,7 @@ void solve_eocross(cube_t cube, std::string solution = "", char prev_move = ' ',
     }
 }
 
-cube_t scramble_cube(std::string scramble) {
+cube_t scramble_cube(std::string scramble, move_t scramble_moveset[18]) {
     cube_t cube;
     for (int i = 0; i < 12; i++) {
         cube.eo[i] = true;
@@ -141,7 +144,7 @@ cube_t scramble_cube(std::string scramble) {
         if (scramble[i] == ' ') {
             for (int m = 0; m < 18; m++) {
                 if (moveset[m].id == scramble_move) {
-                    cube = apply_move(cube, moveset[m]);
+                    cube = apply_move(cube, scramble_moveset[m]);
                     break;
                 }
             }
@@ -152,24 +155,47 @@ cube_t scramble_cube(std::string scramble) {
     }
     for (int m = 0; m < 18; m++) {
         if (moveset[m].id == scramble_move) {
-            cube = apply_move(cube, moveset[m]);
+            cube = apply_move(cube, scramble_moveset[m]);
             break;
         }
     }
     return cube;
 }
 
-void solve_eocross_scramble(std::string scramble) {
+void solve_eocross_scramble(std::string scramble, move_t scramble_moveset[18], std::string moveset_id) {
     eocross_max_length = eo_max_depth + cross_max_depth;
     updating_eo_max_depth = eo_max_depth;
     updating_cross_max_depth = cross_max_depth;
-    solve_eocross(scramble_cube(scramble));
+    solve_eocross(scramble_cube(scramble, scramble_moveset));
+    std::cout << std::endl;
+    if (eocross_solutions.size() < 3) {
+        for (int i = 0; i < eocross_solutions.size(); i++) {
+            std::cout << eocross_solutions[i].movecount << " HTM "
+                      << moveset_id << " " << eocross_solutions[i].solution << std::endl;
+        }
+    } else {
+        for (int i = eocross_solutions.size() - 3; i < eocross_solutions.size(); i++) {
+            std::cout << eocross_solutions[i].movecount << " HTM "
+                      << moveset_id << " " << eocross_solutions[i].solution << std::endl;
+        }
+    }
 }
 
 int main() {
     std::string scramble;
     std::cout << "Enter scramble: ";
     std::getline(std::cin, scramble);
-    solve_eocross_scramble(scramble);
+    solve_eocross_scramble(scramble, moveset, "");
+    solve_eocross_scramble(scramble, z_moveset, "z");
+    solve_eocross_scramble(scramble, z2_moveset, "z2");
+    solve_eocross_scramble(scramble, z3_moveset, "z'");
+    solve_eocross_scramble(scramble, y_moveset, "y");
+    solve_eocross_scramble(scramble, yz_moveset, "y z");
+    solve_eocross_scramble(scramble, yz2_moveset, "y z2");
+    solve_eocross_scramble(scramble, yz3_moveset, "y z'");
+    solve_eocross_scramble(scramble, x3_moveset, "x'");
+    solve_eocross_scramble(scramble, x3z_moveset, "x' z");
+    solve_eocross_scramble(scramble, x3z2_moveset, "x' z2");
+    solve_eocross_scramble(scramble, x3z3_moveset, "x' z'");
     return 0;
 }
