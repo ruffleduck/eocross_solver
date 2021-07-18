@@ -32,5 +32,20 @@ move_t B = {{BL,UR,UF,UL,FL,DB,FR,UB,DF,DR,BR,DL}, flipB, "B"};
 move_t B2 = {{DB,UR,UF,UL,FL,BR,FR,BL,DF,DR,UB,DL}, noflip, "B2"};
 move_t B3 = {{BR,UR,UF,UL,FL,UB,FR,DB,DF,DR,BL,DL}, flipB, "B'"};
 
-const move_t moveset[18] = {U, U2, U3, D, D2, D3, R, R2, R3, L, L2, L3, F, F2, F3, B, B2, B3};
-const move_t cross_moveset[14] = {U, U2, U3, D, D2, D3, R, R2, R3, L, L2, L3, F2, B2};
+move_t moveset[18] = {U, U2, U3, D, D2, D3, R, R2, R3, L, L2, L3, F, F2, F3, B, B2, B3};
+move_t cross_moveset[14] = {U, U2, U3, D, D2, D3, R, R2, R3, L, L2, L3, F2, B2};
+
+move_t z_moveset[18] = {R, R2, R3, L, L2, L3, D, D2, D3, U, U2, U3, F, F2, F3, B, B2, B3};
+move_t z2_moveset[18] = {D, D2, D3, U, U2, U3, L, L2, L3, R, R2, R3, F, F2, F3, B, B2, B3};
+move_t z3_moveset[18] = {L, L2, L3, R, R2, R3, U, U2, U3, D, D2, D3, F, F2, F3, B, B2, B3};
+
+move_t y_moveset[18] = {U, U2, U3, D, D2, D3, F, F2, F3, B, B2, B3, L, L2, L3, R, R2, R3};
+move_t yz_moveset[18] = {R, R2, R3, L, L2, L3, F, F2, F3, B, B2, B3, U, U2, U3, D, D2, D3};
+move_t yz2_moveset[18] = {D, D2, D3, U, U2, U3, F, F2, F3, B, B2, B3, R, R2, R3, L, L2, L3};
+move_t yz3_moveset[18] = {L, L2, L3, R, R2, R3, F, F2, F3, B, B2, B3, D, D2, D3, U, U2, U3};
+
+move_t x3_moveset[18] = {F, F2, F3, B, B2, B3, R, R2, R3, L, L2, L3, D, D2, D3, U, U2, U3};
+move_t x3z_moveset[18] = {F, F2, F3, B, B2, B3, D, D2, D3, U, U2, U3, L, L2, L3, R, R2, R3};
+move_t x3z2_moveset[18] = {F, F2, F3, B, B2, B3, L, L2, L3, R, R2, R3, U, U2, U3, D, D2, D3};
+move_t x3z3_moveset[18] = {F, F2, F3, B, B2, B3, U, U2, U3, D, D2, D3, R, R2, R3, L, L2, L3};
+
