@@ -120,8 +120,8 @@ void solve_eocross(cube_t cube, std::string solution = "", char prev_move = ' ',
     }
     for (int i = 0; i < 18; i++) {
         if (moveset[i].id[0] == prev_move
-        ||  moveset[i].flip == flipB && cube.eo[UB] && cube.eo[BR] && cube.eo[DB] && cube.eo[BL]
-        ||  moveset[i].flip == flipF && cube.eo[UF] && cube.eo[FR] && cube.eo[DF] && cube.eo[FL]) {
+        ||  (moveset[i].flip == flipB && cube.eo[UB] && cube.eo[BR] && cube.eo[DB] && cube.eo[BL])
+        ||  (moveset[i].flip == flipF && cube.eo[UF] && cube.eo[FR] && cube.eo[DF] && cube.eo[FL])) {
             continue;
         }
         solve_eocross(
